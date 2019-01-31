@@ -28,11 +28,11 @@ public class AppSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 		auth
 		.inMemoryAuthentication()
 		.withUser("usr1")
-		.password("password")
+		.password("{noop}password")
 		.roles("USER")
 		.and()
 		.withUser("admin")
-		.password("admin")
+		.password("{noop}admin")
 		.roles("USER", "ADMIN");
 	}
 
