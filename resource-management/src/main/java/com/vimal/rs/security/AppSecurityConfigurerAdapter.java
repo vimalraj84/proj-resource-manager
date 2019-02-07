@@ -1,14 +1,19 @@
-package com.vimal.rs;
+package com.vimal.rs.security;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 //our own configuration
@@ -16,6 +21,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 //@EnableWebSecurity is need if we disable the default security configuration.
 //Need if we’re overriding the default behavior using a WebSecurityConfigurerAdapter.
 @EnableWebSecurity
+
+//For a non-Spring Boot application, we can extend the AbstractSecurityWebApplicationInitializer and pass our config class in its constructor:
 public class AppSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
 	@Value("${spring.security.user.name:default}")
@@ -23,41 +30,59 @@ public class AppSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 	@Value("${spring.security.user.password:default}")
 	private String password;
 	
+	@Autowired
+	private AppRestAuthEntryPoint appRestAuthEntryPoint; 
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
 		.inMemoryAuthentication()
 		.withUser("usr1")
-		.password("{noop}password")
-		.roles("USER")
+		//.password("{noop}password")
+		.password(encoder().encode("password")).roles("USER")
 		.and()
 		.withUser("admin")
-		.password("{noop}admin")
-		.roles("USER", "ADMIN");
+		.password(encoder().encode("admin")).roles("USER","MGR", "ADMIN")
+		.and()
+		.withUser("mgr")
+		.password(encoder().encode("mgr")).roles("USER", "MGR");
+	}
+	
+	@Bean
+	public PasswordEncoder  encoder() throws NoSuchAlgorithmException {
+	    return new BCryptPasswordEncoder(4, SecureRandom.getInstanceStrong());
 	}
 
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http
-//		.authorizeRequests()
-//		.antMatchers("/mgr**" ).authenticated()
-//		.antMatchers("/search**" ).authenticated()
-//		.antMatchers("/welcome**" ).authenticated()
-//		.antMatchers( "/index**" ).authenticated()
-//		.anyRequest()
-//		.authenticated()
-//		.and()
-//		.httpBasic()
-//		.and()
-//        .csrf()
-//            .disable()
-//        .rememberMe();
-//	}
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		
+		
+//		 http
+//		    .csrf().disable()
+//		    .exceptionHandling()
+//		    .authenticationEntryPoint(appRestAuthEntryPoint)
+//		    .and()
+//		    .authorizeRequests()
+//		    //The /search/** pattern is accessible to any authenticated user. 
+//		    //then, /mgr/** will only be accessible to ADMIN role users.
+//		    //then, /admin/** will only be accessible to ADMIN role users.
+//		    .antMatchers( "/index**" ).authenticated()
+//		    .antMatchers("/search/**" ).hasAnyRole("USER","MGR", "ADMIN")
+//			.antMatchers("/reg/**" ).hasAnyRole("USER","MGR", "ADMIN")
+//			.antMatchers("/mgr/**" ).hasRole("MGR")
+//		    .antMatchers("/admin/**").hasRole("ADMIN")
+//		    .and()
+//		    .formLogin()
+////		    .successHandler(mySuccessHandler)
+////		    .failureHandler(myFailureHandler)
+//		    .and()
+//		    .logout();
+	}
 	
 	
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/admin/**" );
+        web.ignoring().antMatchers("/search/**" );
     }
     
     
