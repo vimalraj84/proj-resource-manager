@@ -1,4 +1,4 @@
-package com.vimal.rs.eo.emp;
+package com.vimal.rs.dto.emp;
 
 public class EmpPay {
 

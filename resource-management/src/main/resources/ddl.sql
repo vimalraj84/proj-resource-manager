@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS EMP_ID (
+  id int(10) NOT NULL AUTO_INCREMENT,
+  ssn int(10) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (id)
+);
+
+
+CREATE TABLE IF NOT EXISTS EMP_DTL (
+  id int(10) NOT NULL ,
+  fname varchar(20) NOT NULL,
+  lname varchar(20) NOT NULL,
+  mname varchar(20),
+  sex varchar(100) NOT NULL,
+  CONSTRAINT empid
+  FOREIGN KEY (id) REFERENCES EMP_ID (id)
+    ON DELETE CASCADE ON UPDATE CASCADE
+);
+

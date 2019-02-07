@@ -82,7 +82,7 @@ public class AppSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 	
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/search/**" );
+        web.ignoring().antMatchers("/search/**" ).antMatchers("/h2-console/**" );
     }
     
     
