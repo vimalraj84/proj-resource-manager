@@ -16,12 +16,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class AppRestAuthEntryPoint implements AuthenticationEntryPoint  {
 
+
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
-		
+
 		//new custom entry point to simply return 401 when triggered
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
 	}
 
 }
