@@ -73,7 +73,7 @@ public class AppSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter  
 		    .and()
 		    .authorizeRequests()
 		    //The /search/** pattern is accessible to any authenticated user. 
-		    //then, /mgr/** will only be accessible to ADMIN role users.
+		    //then, /mgr/** will only be accessible to MGR role users.
 		    //then, /admin/** will only be accessible to ADMIN role users.
 		    .antMatchers("/login/**").permitAll()
 		    .antMatchers( "/index**" ).authenticated()
