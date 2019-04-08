@@ -1,4 +1,4 @@
-package com.vimal.rs.eo.emp;
+package com.vimal.rs.dto.emp;
 
 public class EmpName implements Name {
     private String fName;
