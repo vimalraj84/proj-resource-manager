@@ -1,4 +1,4 @@
-package com.vimal.rs.dto.emp;
+package com.bilqu.rs.dto.emp;
 
 public enum EmpSex {
 

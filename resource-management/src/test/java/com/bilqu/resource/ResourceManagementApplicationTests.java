@@ -1,4 +1,4 @@
-package com.vimal.resource;
+package com.bilqu.resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

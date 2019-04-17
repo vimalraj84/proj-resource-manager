@@ -1,4 +1,4 @@
-package com.vimal.rs.service;
+package com.bilqu.rs.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

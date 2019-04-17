@@ -1,4 +1,4 @@
-package com.vimal.rs.conf;
+package com.bilqu.rs.conf;
 
 import javax.sql.DataSource;
 

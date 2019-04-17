@@ -1,4 +1,4 @@
-package com.vimal.rs.dto.emp;
+package com.bilqu.rs.dto.emp;
 
 
 // A functional interface is an interface that contains only one abstract method.

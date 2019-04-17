@@ -1,4 +1,4 @@
-package com.vimal.rs.aop;
+package com.bilqu.rs.aop;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -17,7 +17,7 @@ public class AspectLog {
 	
 	private final Logger LOG = LoggerFactory.getLogger(AspectLog.class);
 	
-	@Before("execution(* com.vimal.rs..*.*(..)) && execution(* com.vimal.rs..*.*(..))")
+	@Before("execution(* com.bilqu.rs..*.*(..)) && execution(* com.bilqu.rs..*.*(..))")
 	public void before(JoinPoint joinPoint) {
 		LOG.info("Before execution of {}",joinPoint);
 		
@@ -31,7 +31,7 @@ public class AspectLog {
 		
 	}
 	
-	@After("execution(* com.vimal.rs..*.*(..)) && execution(* com.vimal.rs..*.*(..))")
+	@After("execution(* com.bilqu.rs..*.*(..)) && execution(* com.bilqu.rs..*.*(..))")
 	public void after(JoinPoint joinPoint) {
 		LOG.info("After execution of {}",joinPoint);
 		StringBuilder builder = new StringBuilder();
@@ -43,7 +43,7 @@ public class AspectLog {
 		LOG.info(builder.toString());
 	}
 	
-	@Around("execution(* com.vimal.rs..*.*(..)) && execution(* com.vimal.rs..*.*(..))")
+	@Around("execution(* com.bilqu.rs..*.*(..)) && execution(* com.bilqu.rs..*.*(..))")
 	public void around(final ProceedingJoinPoint jointPoint) throws Throwable {
 		long start = System.currentTimeMillis();
 		Object result = jointPoint.proceed();
@@ -60,17 +60,17 @@ public class AspectLog {
 		LOG.info(builder.toString());
 	}
 
-//	@AfterThrowing("execution(* com.vimal.rs..*.*(..))")
+//	@AfterThrowing("execution(* com.bilqu.rs..*.*(..))")
 //	public void afterThrowing(Exception ex) {
 //		ex.printStackTrace();
 //	}
 	
-//	@Around("execution(public void org.slf4j.Logger.info(Object)) && args(msg) && !within(com.vimal.rs.aop.AspectLog)")
+//	@Around("execution(public void org.slf4j.Logger.info(Object)) && args(msg) && !within(com.bilqu.rs.aop.AspectLog)")
 //	public Object formatMessage(final Object msg, final ProceedingJoinPoint invocation, final JoinPoint.EnclosingStaticPart callerContext) throws Throwable {
 //		return formatAndProceed(msg, null, invocation, callerContext);
 //	}
 //
-//	@Around("execution(public void org.slf4j.Logger.Logger.info(Object)) && args(msg) && !within(com.vimal.rs.aop.AspectLog)")
+//	@Around("execution(public void org.slf4j.Logger.Logger.info(Object)) && args(msg) && !within(com.bilqu.rs.aop.AspectLog)")
 //	public Object formatMessage(final Object msg, final Throwable exception, final ProceedingJoinPoint invocation, final JoinPoint.EnclosingStaticPart callerContext) throws Throwable {
 //		return formatAndProceed(msg, exception, invocation, callerContext);
 //	}
